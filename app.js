@@ -750,7 +750,7 @@ app.post('/location/:location_id/message/delete/:message_id', checkAuthenticated
 // =============================================================================================================================
 
 // Get list of group members (display + click user to go to their page ONLY)
-app.get('/location_members/:id', checkAuthenticated, locationIDs_Find, (req, res) => {
+app.get('/location_members/:id', locationIDs_Find, (req, res) => {
     const location_id = parseInt(req.params.id);
 
     const sql = 'SELECT location_name FROM location WHERE location_id = ?';
