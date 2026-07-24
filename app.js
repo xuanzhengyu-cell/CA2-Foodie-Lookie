@@ -856,12 +856,12 @@ app.get('/location/edit/:location_id', checkAuthenticated, locationIDs_Find, che
 // edit for location (post)
 app.post('/location/edit/:location_id', checkAuthenticated, checkGOwnerandAdmin, upload.single('image'), (req, res) => {
     const location_id = req.params.location_id;
-    const { location_name } = req.body;
+    const { location_name, existing_image } = req.body;
     let image;
     if (req.file) {
         image = req.file.filename; // Save only the filename
     } else {
-        image = null;
+        image = existing_image || null;
     }
     const sql = `
         UPDATE location
