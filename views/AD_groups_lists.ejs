@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <title>Location Groups</title>
+</head>
+
+<body>
+<%- include ('header/header.ejs') %>
+<div class="container mt-5">
+    <div class="card p-4 border-0 shadow-sm mb-5">
+        <h2 class="h4 mb-3 text-dark">Establish New Location</h2>
+        <form action="/create_location" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <input type="text" id="location_name" name="location_name" class="form-control" placeholder="Gourmet Location Name (e.g., Jurong Point Food Court)" required>
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label">Upload Location Image:</label>
+                <input class="form-control" type="file" id="image" name="image" accept="image/*" >
+            </div>
+            <div class="mb-3">
+                <label for="user_id" class="form-label">Assign Location Manager:</label>
+                <select name="user_id" class="form-select">
+                <% users.forEach(users => { %>
+                    <% if (users.role == "admin") { %>
+                        <option value="<%= users.user_id %>" disabled>
+                            <%= users.username %> (Admin - Disabled)
+                        </option>
+                    <% } else {%>
+                        <option value="<%= users.user_id %>" >
+                            <%= users.username %>
+                        </option>
+                    <% } %>
+                <% }) %>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-success mt-2">Establish Location</button>
+        </form>
+    </div>
+    <div>
+        <h2 class="h4 mb-3 text-dark">Existing Locations</h2>
+
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="ps-4">Location Name</th>
+                        <th>Manage Details</th>
+                        <th class="text-end pe-4">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if (locations.length === 0) { %>
+                        <tr>
+                            <td colspan="3" class="text-center py-4 text-muted">No locations established yet.</td>
+                        </tr>
+                    <% } else { %>
+                        <% locations.forEach(function(location) { %>
+                            <tr>
+                                <td class="ps-4 fw-semibold"><%= location.location_name %></td>
+                                <td>
+                                    <a href="/location/edit/<%= location.location_id %>" class="btn btn-outline-primary btn-sm">
+                                        Edit Settings
+                                    </a>
+                                </td>
+                                <td class="text-end pe-4">
+                                    <form action="/delete_location/<%= location.location_id %>" method="POST" class="d-inline">
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this location?');">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

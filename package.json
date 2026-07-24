@@ -1,0 +1,30 @@
+{
+  "name": "ca2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "connect-flash": "^0.1.1",
+    "ejs": "^6.0.1",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "multer": "^2.2.0",
+    "mysql2": "^3.22.6"
+},
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xuanzhengyu-cell/CA2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/xuanzhengyu-cell/CA2/issues"
+  },
+  "homepage": "https://github.com/xuanzhengyu-cell/CA2#readme"
+}

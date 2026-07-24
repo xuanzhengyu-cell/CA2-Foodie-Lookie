@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location Manager Control Room - Flavour Hub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<%- include('header/header.ejs') %>
+
+<div class="container mt-4">
+    <!-- Title Card -->
+    <div class="card mb-4">
+        <div class="card-body text-center">
+            <h2 class="mb-0"><%= location.location_name %> - Control Room</h2>
+        </div>
+    </div>
+
+    <!-- Location details Form Card -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h4 class="mb-3">Location Details & Cover Photo</h4>
+            
+            <div class="mb-4">
+                <% if (location.Images == null || location.Images === "null" || !location.Images) { %>
+                    <img src="https://placehold.co/600x400?text=No+Location+Image" alt="Location Picture" class="dashboard-location-img">
+                <% } else { %>
+                    <img src="/images/<%= location.Images %>" alt="Location Picture" class="dashboard-location-img">
+                <% } %>
+            </div>
+            
+            <form action="/location/edit/<%= location.location_id %>" method="POST" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label class="form-label"><h5>Location Name:</h5></label>
+                    <input type="text" name="location_name" class="form-control" value="<%= location.location_name %>" required>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label"><h5>Upload Location Image:</h5></label>
+                    <input class="form-control" type="file" id="image" name="image" accept="image/*">
+                </div>
+
+                <button type="submit" class="btn btn-success">
+                    Save Details Changes
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Stall Members Management Card -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h4 class="mb-2">Edit Stall Members</h4>
+            <p class="text-muted small">Update role assignments or remove vendors from this location.</p>
+            
+            <div class="table-responsive mt-3">
+                <table class="table table-hover table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th class="ps-4">Username</th>
+                            <th>Current Role</th>
+                            <th>Change Role</th>
+                            <th class="text-end pe-4">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% users.forEach(user => { %>
+                            <tr>
+                                <td class="ps-4 fw-semibold"><%= user.username %></td>
+
+                                <!-- Role Label -->
+                                <td>
+                                    <% if (user.group_role === "group_owner") { %>
+                                        <span class="badge bg-warning text-dark px-3 py-2 rounded-3">Location Manager</span>
+                                    <% } else if (user.group_role === "group_member") { %>
+                                        <span class="badge bg-primary text-white px-3 py-2 rounded-3">Stall Owner</span>
+                                    <% } else if (user.group_role === "normal_user") { %>
+                                        <span class="badge bg-secondary text-white px-3 py-2 rounded-3">Foodie</span>
+                                    <% } else { %>
+                                        <span class="badge bg-light text-dark px-3 py-2 rounded-3"><%= user.group_role %></span>
+                                    <% } %>
+                                </td>
+
+                                <!-- Change Role -->
+                                <td>
+                                    <form action="/location/edit/<%= location.location_id %>/changeRole/<%= user.user_id %>" method="POST" class="d-flex gap-2">
+                                        <select name="role" class="form-select form-select-sm" style="max-width: 160px;">
+                                            <option value="group_owner" <%= user.group_role === "group_owner" ? "selected" : "" %>>
+                                                Location Manager
+                                            </option>
+                                            <option value="group_member" <%= user.group_role === "group_member" ? "selected" : "" %>>
+                                                Stall Owner
+                                            </option>
+                                            <option value="normal_user" <%= user.group_role === "normal_user" ? "selected" : "" %>>
+                                                Foodie
+                                            </option>
+                                        </select>
+                                        <button type="submit" class="btn btn-success btn-sm">Update</button>
+                                    </form>
+                                </td>
+
+                                <!-- Kick User! -->
+                                <td class="text-end pe-4">
+                                    <form action="/location/edit/<%= location.location_id %>/deleteUser/<%= user.user_id %>" method="POST">
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Remove this user from the location directory?')">
+                                            Remove Member
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exit Dashboard Button Container -->
+    <div class="mb-5">
+        <a href="/location/<%= location.location_id %>" class="btn btn-secondary">
+            Exit Location Control Room
+        </a>
+    </div>
+</div>
+
+</body>
+</html>
