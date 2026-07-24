@@ -11,11 +11,11 @@
     --secondary-light: #caf0f8;        /* Very Soft Cool Blue tint */
     --dark-color: #0f172a;             /* Premium Deep Slate Blue */
     --dark-muted: #1e293b;
-    --light-bg: #f8fafc;               /* Cool Slate Off-white */
+    --light-bg: #f6ebd9;               /* Light Warm Wooden Cream */
     --card-bg: #ffffff;
     --text-color: #334155;             /* Slate Grey for body text (highly readable) */
     --text-muted: #64748b;
-    --border-color: #e2e8f0;           /* Cool grey borders */
+    --border-color: #ebdcd0;           /* Warm wooden borders */
     --card-shadow: 0 10px 30px rgba(15, 23, 42, 0.03);
     --hover-shadow: 0 20px 40px rgba(0, 150, 199, 0.15);
     --transition-speed: 0.35s;
@@ -27,7 +27,7 @@
 body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--light-bg);
-    background-image: linear-gradient(rgba(248, 250, 252, 0.5), rgba(248, 250, 252, 0.5)), url('/images/Homepage.png');
+    background-image: linear-gradient(rgba(246, 235, 217, 0.55), rgba(246, 235, 217, 0.55)), url('/images/Homepage.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
