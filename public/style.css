@@ -27,28 +27,15 @@
 body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--light-bg);
+    background-image: linear-gradient(rgba(248, 250, 252, 0.5), rgba(248, 250, 252, 0.5)), url('/images/Homepage.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     color: var(--text-color);
     line-height: 1.7;                 /* Improved line height for better reading flow */
     overflow-x: hidden;
     font-size: 0.98rem;               /* Enhanced body text size */
-    position: relative;
-}
-
-/* 50% Transparent Background Image */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-image: url('/images/Homepage.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0.5;                     /* 50% Transparency */
-    z-index: -1;                      /* Behind all page content */
-    pointer-events: none;             /* Ignore mouse events / clicks */
 }
 
 /* Animations */
