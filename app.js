@@ -580,7 +580,7 @@ app.post('/admin/deleteUser/:id', (req, res) => {
 // =============================================================================================================================
 // Location Route
 // =============================================================================================================================
-
+   
 const admin_group_owner_or_member = (req, res, next) => {
     const user_id = req.session.user?.user_id
     const location_id = parseInt(req.params.id);
