@@ -28,30 +28,34 @@
                     <p class="text-muted small">Manage stalls, browse registered members, or post new updates if you are a stall owner.</p>
                     
                     <div class="d-grid gap-2">
-                        <!-- 1. Actions restricted to Admins and Group Owners -->
-                        <% if (userRoles?.role === "admin" || userGroupRoles?.group_role === "group_owner") { %>
-                            <a href="/location/edit/<%= location_id %>" class="btn btn-warning w-100">
-                                Location Control Room
-                            </a>
-                        <% } %>
-
-                        <!-- 2. Actions visible to all visitors/users -->
-                        <a href="/location_members/<%= location_id %>" class="btn btn-dark w-100">
-                            View Stalls & Members
-                        </a>
-
-                        <!-- 3. Actions for members, owners, and admins -->
+                        <!-- for members, owners, and admins -->
                         <% if (userRoles?.role === "admin" || userGroupRoles?.group_role === "group_owner" || userGroupRoles?.group_role === "group_member") { %>
                             <hr class="my-2">
                             <a href="/location/<%= location_id %>/message" class="btn btn-success w-100">
                                 Broadcast Stall Update
                             </a>
                         <% } %>
+
+                        <!-- for Admins and Group Owners -->
+                        <% if (userRoles?.role === "admin" || userGroupRoles?.group_role === "group_owner") { %>
+                            <a href="/location/edit/<%= location_id %>" class="btn btn-warning w-100">
+                                Location Control Room
+                            </a>
+                        <% } %>
+
+                        <!-- for all visitors/users -->
+                        <a href="/location_members/<%= location_id %>" class="btn btn-dark w-100">
+                            View Stalls & Members
+                        </a>
+                        <a href="/" class="btn btn-dark w-100">
+                            Back to Home Page
+                        </a>
+
                     </div>
                 </div>
             </div>
 
-            <!-- Main Panel: Stall Updates (Messages) -->
+            <!-- Stall Updates (Messages) -->
             <div class="col-md-8">
                 <div class="card border-0 shadow-sm">
                     <div class="card-body">
