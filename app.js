@@ -278,13 +278,13 @@ app.get('/profile/edit', checkAuthenticated, locationIDs_Find, (req, res) => {
 // post of edit_user (may remove the ability to edit ur role based on future discussion.)
 app.post('/profile/edit', checkAuthenticated, locationIDs_Find, upload.single('image'), (req, res) => {
     const id = req.session.user.user_id;
-    const { username } = req.body;
+    const { username, existing_image } = req.body;
 
     let image;
     if (req.file) {
         image = req.file.filename; // Save only the filename
     } else {
-        image = "null";
+        image = existing_image || "null";
     }
     const sql = `
         UPDATE users
